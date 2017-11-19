@@ -2,6 +2,15 @@ page-feed {
 
 }
 h2.feed-title{
-color:rgb(35, 35, 231);
+color:red;
 font-weight: bold;
+}
+p.feed-date{
+    color:green;
+}
+div.feed-metacritic{
+    font-size: 16px;
+}
+div.feed-votes{
+    font-size: 16px;
 }

@@ -1,32 +1,44 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the FeedPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { MovieProvider } from '../../providers/movie/movie';
 
 @IonicPage()
 @Component({
   selector: 'page-feed',
   templateUrl: 'feed.html',
+  providers: [
+    MovieProvider
+  ],
 })
 export class FeedPage {
 
-  public nome_usuario: string = "Carlito Murta";
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public obj_feed = {
+    titulo: "Carlito Murta",
+    data: "20 de Novembro/2017",
+    descricao: "Primeiro app ionic-angular criado por mim, seguindo curso de Iniciação Ionic pela Udemy",
+    likes: "12 Likes",
+    comments: "4 Comments",
+    time_post: "11h ago"
   }
 
-  public somaDoisNumeros(num1:number,num2:number): void {
-    alert(num1 + num2);
+  public listMovies = new Array<any>();
+    constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private movieProvider: MovieProvider) {
   }
 
 
   ionViewDidLoad() {
-    //this.somaDoisNumeros(10, 99);
+    this.movieProvider.getLastestMovies().subscribe(data => {
+      const response = data as any;
+      const objRetorno = JSON.parse(response._body);
+      this.listMovies = objRetorno.results;
+      console.log((data as any)._body);
+    },
+      error => {
+        console.log(error);
+      });
   }
 
 

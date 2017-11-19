@@ -7,37 +7,32 @@
 </ion-header>
 
 <ion-content padding>
-<ion-card>
-  <ion-item>
-    <ion-avatar item-start>
-      <img src="assets/imgs/avatar.png">
-    </ion-avatar>
-    <h2 class="feed-title">{{nome_usuario}}</h2>
-    <p>20 de Novembro/2017</p>
-  </ion-item>
-  <ion-card-content>
-    <p>Primeiro app ionic-angular criado por mim, seguindo curso de Iniciação Ionic pela Udemy</p>
-  </ion-card-content>
+  <ion-card *ngFor="let filme of listMovies">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="assets/imgs/avatar.png">
+      </ion-avatar>
+      <h2 class="feed-title">{{filme.original_title}}</h2>
+      <p class="feed-date">{{filme.release_date}}</p>
+    </ion-item>
+    <img [src]="'https://image.tmdb.org/t/p/w300/' + filme.backdrop_path">
+    <ion-card-content>
+      <p>{{filme.overview}}</p>
+    </ion-card-content>
 
-  <ion-row>
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <ion-icon name="thumbs-up"></ion-icon>
-        <div>12 Likes</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <ion-icon name="text"></ion-icon>
-        <div>4 Comments</div>
-      </button>
-    </ion-col>
-    <ion-col center text-center>
-      <ion-note>
-        11h ago
-      </ion-note>
-    </ion-col>
-  </ion-row>
+    <ion-row>
+      <ion-col center text-center>
+        <button ion-button icon-left clear small>
+          <ion-icon name="thumbs-up"></ion-icon>
+          <div class="feed-votes">{{filme.vote_count}} Likes</div>
+        </button>
+      </ion-col>
+      <ion-col center text-center>
+          <ion-note>
+          <div class="feed-metacritic">Metacritic: {{filme.vote_average}}</div>
+        </ion-note>
+      </ion-col>
+    </ion-row>
 
-</ion-card>
+  </ion-card>
 </ion-content>
