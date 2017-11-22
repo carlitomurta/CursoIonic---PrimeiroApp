@@ -30,15 +30,15 @@ export class FeedPage {
 
 
   ionViewDidLoad() {
-    this.movieProvider.getLastestMovies().subscribe(data => {
-      const response = data as any;
-      const objRetorno = JSON.parse(response._body);
-      this.listMovies = objRetorno.results;
-      console.log((data as any)._body);
-    },
-      error => {
-        console.log(error);
-      });
+    // this.movieProvider.getLastestMovies().subscribe(data => {
+    //   const response = data as any;
+    //   const objRetorno = JSON.parse(response._body);
+    //   this.listMovies = objRetorno.results;
+    //   console.log((data as any)._body);
+    // },
+    //   error => {
+    //     console.log(error);
+    //   });
   }
 
 
