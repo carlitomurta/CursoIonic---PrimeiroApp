@@ -13,7 +13,11 @@ export class MovieProvider {
   language: string = "&language=pt-BR";
 
   getLastestMovies() {
-    //return this.http.get(this.baseAPIPath + '/movie/popular' + this.authKey + this.language);
+    return this.http.get(this.baseAPIPath + '/movie/popular' + this.authKey + this.language);
+  }
+
+  getMovieDetails(filmeid) {
+    return this.http.get(this.baseAPIPath + "/movie/" + filmeid + this.authKey + this.language);
   }
 
 }

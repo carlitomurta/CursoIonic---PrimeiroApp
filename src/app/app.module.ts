@@ -1,3 +1,4 @@
+import { DetalheFilmePageModule } from './../pages/detalhe-filme/detalhe-filme.module';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -24,6 +25,7 @@ import { MovieProvider } from '../providers/movie/movie';
     IonicModule.forRoot(MyApp),
     FeedPageModule,
     IntroPageModule,
+    DetalheFilmePageModule,
     HttpModule
   ],
   bootstrap: [IonicApp],

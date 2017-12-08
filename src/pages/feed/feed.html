@@ -7,6 +7,9 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-card *ngFor="let filme of listMovies">
     <ion-item>
       <ion-avatar item-start>
@@ -28,11 +31,11 @@
         </button>
       </ion-col>
       <ion-col center text-center>
-          <ion-note>
+        <ion-note>
           <div class="feed-metacritic">Metacritic: {{filme.vote_average}}</div>
         </ion-note>
       </ion-col>
     </ion-row>
-
+    <button ion-button block (click)="abrirDetalhes(filme)">Detalhes</button>
   </ion-card>
 </ion-content>

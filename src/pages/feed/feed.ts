@@ -1,6 +1,8 @@
+import { DetalheFilmePage } from './../detalhe-filme/detalhe-filme';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MovieProvider } from '../../providers/movie/movie';
+import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 
 @IonicPage()
 @Component({
@@ -21,27 +23,63 @@ export class FeedPage {
     time_post: "11h ago"
   }
 
+  public loader;
+  public refresher;
+  public isRefreshing: boolean = false;
+
   public listMovies = new Array<any>();
-    constructor(
+  constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private movieProvider: MovieProvider) {
+    private movieProvider: MovieProvider,
+    public loadingCtrl: LoadingController) {
   }
 
-
-  ionViewDidLoad() {
-    // this.movieProvider.getLastestMovies().subscribe(data => {
-    //   const response = data as any;
-    //   const objRetorno = JSON.parse(response._body);
-    //   this.listMovies = objRetorno.results;
-    //   console.log((data as any)._body);
-    // },
-    //   error => {
-    //     console.log(error);
-    //   });
+  mostrarLoading() {
+    this.loader = this.loadingCtrl.create({
+      content: "Carregando..."
+    });
+    this.loader.present();
   }
 
+  fecharLoading() {
+    this.loader.dismiss();
+  }
 
+  doRefresh(refresher) {
+    this.refresher = refresher;
+    this.isRefreshing = true;
+    this.carregarFilmes();
+  }
+
+  ionViewDidEnter() {
+    this.carregarFilmes();
+  }
+
+  carregarFilmes(){
+    this.mostrarLoading();
+    this.movieProvider.getLastestMovies().subscribe(data => {
+      const response = data as any;
+      const objRetorno = JSON.parse(response._body);
+      this.listMovies = objRetorno.results;
+      this.fecharLoading();
+      if (this.isRefreshing) {
+        this.refresher.complete();
+        this.isRefreshing = false;
+      }
+    },
+      error => {
+        this.fecharLoading();
+        if (this.isRefreshing) {
+          this.refresher.complete();
+          this.isRefreshing = false;
+        }
+      });
+  }
+
+abrirDetalhes(filme){
+  this.navCtrl.push(DetalheFilmePage,{id:filme.id});
+}
 
 
 }
